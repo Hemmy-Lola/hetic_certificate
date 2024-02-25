@@ -1,9 +1,13 @@
+// Voici notre appli de base,
+// On retrouve notamment la page où toutes les informations vont être affichés sur ma page (Les inputs, et tableau où seront stockées les infos etc...)
+
 import { FC, ChangeEvent, useState } from 'react';
 import './App.css';
 import { Certificate } from './interfaces';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 
+// Ici je vais venir définir ce qu'on attend de chaques infos ainsi que leurs natures
 const App: FC = () => {
   const [lastname, setLastname] = useState<string>("");
   const [firstname, setFirstname] = useState<string>("");
@@ -14,6 +18,8 @@ const App: FC = () => {
   const [candidat, setCandidat] = useState<Certificate[]>([]);
   const [editIndex, setEditIndex] = useState<number | null>(null);
 
+
+  // Ce const va me permettre de mettre à jour les infos de mon composant
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value } = event.target;
     switch (name) {
@@ -41,11 +47,14 @@ const App: FC = () => {
     }
   };
 
+
+  // Ce const va me permettre de soit -> ajouter un candidat, soit -> modifier un candidat déjà ajouté
+
   const addOrUpdateCandidat = (): void => {
     if (editIndex !== null) {
       const updatedCandidats = [...candidat];
       updatedCandidats[editIndex] = {
-        id: candidat[editIndex].id, 
+        id: candidat[editIndex].id,
         lastname,
         firstname,
         birthday: birthday || new Date(),
@@ -57,7 +66,7 @@ const App: FC = () => {
       setEditIndex(null);
     } else {
       const newCandidat = {
-        id: Math.random().toString(), 
+        id: Math.random().toString(),
         lastname,
         firstname,
         birthday: birthday || new Date(),
@@ -85,25 +94,26 @@ const App: FC = () => {
     setOption(candidatToEdit.option);
     setEditIndex(index);
   };
-  
+  // Ici on va venir supprimer le candidat qu'on aura selectionné
   const deleteCandidat = (index: number): void => {
     const updatedCandidats = [...candidat];
     updatedCandidats.splice(index, 1);
     setCandidat(updatedCandidats);
   };
 
+  // Pour aller un peu plus, j'ai voulu générer un pdf de l'info du candidat selectionné en récuperant son id associé
   const createAndDownloadPdf = (id: string): void => {
     const selectedCandidat = candidat.find(candidat => candidat.id === id);
 
     axios.post('/create-pdf', selectedCandidat)
-  .then((res: any) => { 
-    const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-    const filename = selectedCandidat ? `Diplôme_${selectedCandidat.firstname}_${selectedCandidat.lastname}.pdf` : 'diplome.pdf';
-    saveAs(pdfBlob, filename);
-  })
-  .catch((error: any) => { 
-    console.error('Error:', error);
-  });
+      .then((res: any) => {
+        const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+        const filename = selectedCandidat ? `Diplôme_${selectedCandidat.firstname}_${selectedCandidat.lastname}.pdf` : 'diplome.pdf';
+        saveAs(pdfBlob, filename);
+      })
+      .catch((error: any) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -139,6 +149,7 @@ const App: FC = () => {
       </div>
       <button onClick={addOrUpdateCandidat}>Ajouter un candidat</button>
       <div className="candidat">
+        {/* C'est ici que je vais venir stocker les infos que l'utilisateur aura mis dans ses inputs sous forme de tableau */}
         <table>
           <thead>
             <tr>
@@ -161,9 +172,9 @@ const App: FC = () => {
                 <td>{candidat.option}</td>
                 <td>{candidat.mention}</td>
                 <td>
-                  <button onClick={() => editCandidat(index)}>Éditer</button>
-                  <button onClick={() => deleteCandidat(index)}>Supprimer</button>
-                  <button onClick={() => createAndDownloadPdf(candidat.id)}>Télécharger</button>
+                  <button className="actions" onClick={() => editCandidat(index)}>Éditer</button>
+                  <button className="actions" onClick={() => deleteCandidat(index)}>Supprimer</button>
+                  <button className="actions" onClick={() => createAndDownloadPdf(candidat.id)}>Télécharger</button>
                 </td>
               </tr>
             ))}

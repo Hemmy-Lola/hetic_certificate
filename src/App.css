@@ -93,7 +93,7 @@ td {
   font-family: 'Open Sans';
 }
 
-.actions button {
+td button {
   width: 100px;
   height: 35px;
   background-color: #14F5AA;

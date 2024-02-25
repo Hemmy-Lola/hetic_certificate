@@ -5,7 +5,7 @@ var express_1 = require("express");
 var body_parser_1 = require("body-parser");
 var html_pdf_1 = require("html-pdf");
 var cors_1 = require("cors");
-var pdfTemplate_1 = require("./pdfTemplate");
+var pdfTemplate_1 = require("./documents/pdfTemplate");
 var app = (0, express_1.default)();
 var port = process.env.PORT || 5000;
 app.use((0, cors_1.default)());

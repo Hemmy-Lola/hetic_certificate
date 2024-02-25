@@ -7,6 +7,9 @@ interface CertificateData {
     mention: string;
 }
 
+// On va venir prendre en paramètre les infos de "certificateData" qui sont celles renseignées dans mes inputs
+// J'utilise la bibliothèque html-pdf pour convertir mon fichier HTML en fichier PDF
+// On retrouve donc mes infos en HTML avec le style déjà attribué ainsi que les variables où je veux que mes informations soient affichées 
 const generatePdfTemplate = ({ lastname, firstname, birthday, birthplace, option, mention }: CertificateData): string => {
     const today = new Date();
     return `
