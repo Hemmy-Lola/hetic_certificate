@@ -18,6 +18,8 @@ npm install
 
 L'architecture de mon dossier est organisée comme ceci :
 
+```
+
 ├── node_modules/            # Dossier des modules Node.js installés
 ├── public/                  # Dossier public
 ├── server/                  # Dossier du serveur
@@ -39,6 +41,7 @@ L'architecture de mon dossier est organisée comme ceci :
 
 etc...
 
+```
 
 # 💻 Technologies Utilisées
 
