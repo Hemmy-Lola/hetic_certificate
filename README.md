@@ -64,6 +64,12 @@ Dans mon projet j'utilise les technologies suivantes :
 - html-pdf = Bibliothèque Node.js qui me permet de générer des fichiers PDF à partir de contenu HTML
 
 
+
+- Nodemon = Cela m'a permis d'actualiser automatiquement mon serveur
+
+- tsc = J'ai ainsi pu compilé mon code Ts et Js
+
+
 ## 🌟 Axe d'améliorations 
 
 Ce que j'aurai trouvé intéressant d'intégrer dans mon projet pour une meilleure expérience: 
