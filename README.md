@@ -13,6 +13,15 @@ Avant de commencer, assurez-vous d'installer les dépendances suivantes :
 ```
 npm install
 ```
+- Pour démarrer le projet :
+```
+npm start
+```
+
+- Pour activer le serveur pour générer le pdf (le projet reste tout de même visible sans activer le serveur dans le cas où il ne fonctionne pas correctement):
+```
+nodemon server.ts
+```
 
 ## 📂 Architecture de mon Dossier
 
